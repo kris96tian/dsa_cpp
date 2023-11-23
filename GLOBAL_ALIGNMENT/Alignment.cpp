@@ -7,14 +7,6 @@
 #include <limits>
 #include <stdexcept>
 
-
-
-
-#include "Alignment.hpp"
-#include <iostream>
-#include <stdexcept>
-#include <algorithm>
-
 Alignment::Alignment(const std::string& seq_v, const std::string& seq_h)
     : seq_v(seq_v), seq_h(seq_h), 
       seq_v_size(seq_v.size()), seq_h_size(seq_h.size()), 
