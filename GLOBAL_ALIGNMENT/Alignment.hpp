@@ -1,40 +1,35 @@
 #pragma once
 #include <string>
-#include <limits>
 #include <vector>
-#include <algorithm>
 #include <iostream>
 
-class Alignment
-{
+class Alignment {
 public:
-  
-  Alignment() = delete;  
-  
-  /// Constructor with two sequences
-  /// Makes an internal copy of the sequences.
-  Alignment(const std::string& seq_v, const std::string& seq_h);
-  
-  /// Compute the aligment (i.e. score and traceback)
-  /// given the three alignment parameters match, mismatch and gap.
-  void compute(const int match, const int mismatch, const int gap, const bool local_align = false);
-  
-  /// Return the score of the alignment;
-  int getScore() const;
-  
-  void getAlignment(std::string& a1, std::string& gaps, std::string& a2) const; //ausgabe
-    
-  private:
-    std::string seq_v;
-    std::string seq_h;
-    uint32_t seq_v_size;
-    uint32_t seq_h_size;
-    std::vector<int> matrix;
-    std::vector<int> traceback_matrix;
-    bool computed{false};
+  // Constructor (Deleted) to prevent default initialization
+  Alignment() = delete;
 
-    int matchCheck(char char_v, char char_h, int match, int mismatch) const;
-    int scoreCalculator(int gap, int matchValue, int diagonal, int left, int top) const;
-    int tracebackScoreCalculator(int gap, int matchValue, int diagonal, int left, int top) const;
-    void initializeMatrices(int gap);
+  // Constructor to initialize the sequence strings
+  Alignment(const std::string& seq_v, const std::string& seq_h);
+
+  // Method to compute the alignment score and generate the alignment strings
+  void compute(const int match, const int mismatch, const int gap, const bool local_align = false);
+
+  // Method to retrieve the alignment score
+  int getScore() const;
+
+  // Method to retrieve the alignment strings (aligned sequences, gaps, and directions)
+  void getAlignment(std::string& a1, std::string& gaps, std::string& a2) const;
+
+private:
+  // Private member variables to store alignment data
+  std::string seq_v;  // Vertical sequence
+  std::string seq_h;  // Horizontal sequence
+
+  // Score of the alignment
+  int score;
+
+  // Aligned sequences
+  std::string a1;
+  std::string gaps; 
+  std::string a2;
 };
