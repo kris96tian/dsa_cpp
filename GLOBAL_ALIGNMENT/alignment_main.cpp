@@ -1,32 +1,34 @@
-#include "Alignment.hpp"
 #include <iostream>
-#include <cstdlib>
+#include "Alignment.hpp"
 
-int main(int argc, const char* argv[]) {
-    if (argc != 7) {
-        std::cerr << "Usage: " << argv[0] << " <seq1> <seq2> <match> <mismatch> <gap> <local_align>\n";
-        return 1;
+int main(int argc, char* argv[]) 
+{
+
+    if (argc < 3) {
+        std::cout << "Usage: " << argv[0] << " seq1 seq2 [match] [mismatch] [gap]\n";
+        return 1; 
     }
 
-    try {
-        std::string seq1 = argv[1];
-        std::string seq2 = argv[2];
-        int match = std::atoi(argv[3]);
-        int mismatch = std::atoi(argv[4]);
-        int gap = std::atoi(argv[5]);
-        bool local_align = std::atoi(argv[6]) != 0;
+    std::string seq_v = argv[1];
+    std::string seq_h = argv[2];
 
-        Alignment alignment(seq1, seq2);
-        alignment.compute(match, mismatch, gap, local_align);
 
-        std::string a1, gaps, a2;
-        alignment.getAlignment(a1, gaps, a2);
-        std::cout << a1 << "\n" << gaps << "\n" << a2 << "\n";
-        std::cout << "Score: " << alignment.getScore() << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
+    Alignment alignment(seq_v, seq_h);
+    int match = (argc > 3 ? std::stoi(argv[3]) : 1);
+    int mismatch = (argc > 4 ? std::stoi(argv[4]) : 1);
+    int gap = (argc > 5 ? std::stoi(argv[5]) : 1);
+
+    alignment.compute(match, mismatch, gap);
+    int score = alignment.getScore();
+    std::cout << "Alignment score: " << score << std::endl;
+
+    // Get the aligned sequences
+    std::string a1, gaps, a2;
+    alignment.getAlignment(a1, gaps, a2);
+    std::cout << "Aligned sequences:" << std::endl;
+    std::cout << a1 << std::endl;
+    std::cout << gaps << std::endl;
+    std::cout << a2 << std::endl;
 
     return 0;
 }
