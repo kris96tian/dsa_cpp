@@ -1,3 +1,5 @@
+<img src="blob:chrome-untrusted://media-app/86e979e4-2d29-4ed7-a215-6c8fb7dc89a4" alt="blast.png"/>![image](https://github.com/kris96tian/dsa_cpp/assets/92834350/c7a1c8ca-6b94-4ca0-923a-da7385ecdc19)
+
 # BLAST Neighborhood Generator
 ## Overview
 
