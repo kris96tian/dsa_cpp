@@ -1,33 +1,34 @@
-Nussinov RNA Folding
+# Nussinov RNA Folding
+
 A C++ implementation of the Nussinov algorithm for RNA secondary structure prediction. The Nussinov algorithm is a dynamic programming approach for predicting the minimum free energy structure of an RNA molecule.
 
-Building and Running
+## Building and Running
+
 To build the code, first install the required dependencies:
 
-A C++ compiler (e.g., g++)
-The Boost library (http://www.boost.org/)
+- A C++ compiler (e.g., g++)
+- The Boost library ([http://www.boost.org/](http://www.boost.org/))
+
 Then, compile the code with the following command:
 
-Download
-Copy code
+```bash
 g++ -o main main.cpp nussinov.cpp -lboost_program_options
-This will create an executable file called main that you can run with the following command:
 
-Download
-Copy code
 ./main [RNA_SEQUENCE]
-If you do not provide an RNA sequence as a command-line argument, the program will prompt you to enter one.
+
+//If you do not provide an RNA sequence as a command-line argument, the program will prompt you to enter one.
 
 Usage
 The program takes an RNA sequence as input and outputs the predicted minimum free energy structure. The input RNA sequence must consist of only the characters A, C, G, and U, representing the nucleotides adenine, cytosine, guanine, and uracil, respectively.
 
 Here's an example of how to use the program:
 
-Download
+bash
 Copy code
 ./main GCGCGC
 Sequence: GCGCGC
 Structure: ((..))
+
 In this example, the input RNA sequence is GCGCGC, and the predicted minimum free energy structure is ((..)).
 
 Implementation
@@ -42,5 +43,3 @@ Acknowledgments
 This implementation of the Nussinov algorithm is based on the description in the following paper:
 
 Nussinov, R., & Jacobson, J. W. (1980). Fast folding of RNA sequences into secondary structures. Nucleic acids research, 8(20), 4877-4888.
-
-I hope this readme.md file is helpful! Let me know if you have any further questions or if there's anything else I can do to help.
