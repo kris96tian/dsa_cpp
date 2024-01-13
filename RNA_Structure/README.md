@@ -13,11 +13,12 @@ Then, compile the code with the following command:
 
 ```bash
 g++ -o main main.cpp nussinov.cpp -lboost_program_options
-
-./main [RNA_SEQUENCE]
-
-//If you do not provide an RNA sequence as a command-line argument, the program will prompt you to enter one.
 ```
+```
+./main [RNA_SEQUENCE]
+```
+If you do not provide an RNA sequence as a command-line argument, the program will prompt you to enter one.
+
 
 ## Usage
 The program takes an RNA sequence as input and outputs the predicted minimum free energy structure. The input RNA sequence must consist of only the characters A, C, G, and U, representing the nucleotides adenine, cytosine, guanine, and uracil, respectively.
@@ -26,8 +27,10 @@ Here's an example of how to use the program:
 
 ```bash
 ./main GCGCGC
+```
 
-// Output:
+Expected output:
+```
 Sequence: GCGCGC
 Structure: ((..))
 ```
