@@ -7,7 +7,6 @@ A C++ implementation of the Nussinov algorithm for RNA secondary structure predi
 To build the code, first install the required dependencies:
 
 - A C++ compiler (e.g., g++)
-- The Boost library ([http://www.boost.org/](http://www.boost.org/))
 
 Then, compile the code with the following command:
 
