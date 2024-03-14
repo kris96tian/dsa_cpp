@@ -1,4 +1,4 @@
-# HORSPOOL Algorithm Implementation in C++
+# HORSPOOL Algorithm (Exact string matching in linear time)
 This repository contains an implementation of the Horspool algorithm, a simple and efficient algorithm for exact string searching. The Horspool algorithm is an improvement over the naive string search algorithm, which has a worst-case time complexity of O(nm), where n is the length of the text and m is the length of the pattern. The Horspool algorithm has a worst-case time complexity of O(n), which makes it much more efficient for large inputs.
 
 ## Usage
