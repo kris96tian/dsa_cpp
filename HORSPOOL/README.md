@@ -34,7 +34,7 @@ This will output the index of the first occurrence of the pattern in the text.
 ## Example Output:
 
 
-```
+```bash
 ./horspool "This is a test string." "test"
 Horspool search:
 
