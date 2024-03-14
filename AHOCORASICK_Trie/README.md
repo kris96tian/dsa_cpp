@@ -28,18 +28,24 @@ The code is organized into the following components:
 
 ## Usage
 
-To use this implementation with your own patterns and text, follow these steps:
+Compile the C++ program:
 
-1. Modify the `some_patterns` vector in the `main` function to contain the patterns you want to search for.
-
-2. Update the `random_text` string in the `main` function with the text in which you want to search for patterns.
-
-3. Compile and run the program.
+```bash
+g++ -o ahocorasick ahocorasick.cpp 
+```
+Then add the input text to be searched and the pattern(s) as command line arguments:
+```bash
+./ahocorasick <text> <pattern1> <pattern2> ...
+```
+The program outputs the positions where each pattern is found in the text.
 
 ## Example
+Input:
+```bash
+./ahocorasick abcdefgh ab bc cf def
+```
 
-In the provided example, the program searches for patterns "ab", "bc", "cf", and "def" in the text "abcdefgh". The program outputs the positions where each pattern is found in the text.
-
+Output:
 ```plaintext
 Pattern "ab" found at Position 0
 Pattern "bc" found at Position 1
@@ -48,7 +54,5 @@ Pattern "def" found at Position 3
 ```
 
 ## References
-
 This implementation is based on the Aho-Corasick algorithm described in the following paper:
-
 Aho, Alfred V., and Corasick, Margaret J. "Efficient string matching: An aid to bibliographic search." Communications of the ACM 18.6 (1975): 333-340.
