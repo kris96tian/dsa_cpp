@@ -19,7 +19,10 @@ cd dsa_cpp/HORSPOOL
 g++ -o horspool horspool.cpp horspool_main.cpp
 ```
 This command will compile both the horspool.cpp and horspool_main.cpp files into an executable named horspool.
-
+Alternatively just use the Makefile like 
+```bash
+~/dsa_cpp/HORSPOOL$ make
+```
 4. After compiling, you can run the program with the text and pattern as command line arguments:
 
 ```bash
@@ -31,7 +34,7 @@ This will output the index of the first occurrence of the pattern in the text.
 ## Example Output:
 
 
-```cpp
+```
 ./horspool "This is a test string." "test"
 Horspool search:
 
