@@ -12,10 +12,16 @@ Alignment::Alignment(const std::string& seq_v, const std::string& seq_h)
     {}
 
 void Alignment::compute(const int match, const int mismatch, const int gap, const bool local_align) {
-    // Init DP table with zeros
     std::vector<std::vector<int>> dp(seq_v.size()+1, std::vector<int>(seq_h.size()+1, 0));
 
-    // Fill DP table
+    // Clear and resize strings for alignment
+    a1.clear();
+    a1.resize(std::max(seq_v.size(), seq_h.size()));
+    gaps.clear();
+    gaps.resize(std::max(seq_v.size(), seq_h.size()));
+    a2.clear();
+    a2.resize(std::max(seq_v.size(), seq_h.size()));
+
     for (size_t i = 1; i <= seq_v.size(); i++) {
         for (size_t j = 1; j <= seq_h.size(); j++) {
             int matchScore = (seq_v[i-1] == seq_h[j-1] ? match : -mismatch) + dp[i-1][j-1];
@@ -29,34 +35,37 @@ void Alignment::compute(const int match, const int mismatch, const int gap, cons
         }
     }
 
-    // Traceback 
-    a1.clear();
-    gaps.clear();
-    a2.clear();
+    // Traceback
     size_t i = seq_v.size();
     size_t j = seq_h.size();
+    size_t idx = 0;
     while (i > 0 && j > 0) {
         if (dp[i][j] == dp[i-1][j-1] + (seq_v[i-1] == seq_h[j-1] ? match : -mismatch)) {
-            a1.insert(a1.begin(), seq_v[i-1]);
-            gaps.insert(gaps.begin(), (seq_v[i-1] == seq_h[j-1] ? '|' : ' '));
-            a2.insert(a2.begin(), seq_h[j-1]);
+            a1[idx] = seq_v[i-1];
+            gaps[idx] = (seq_v[i-1] == seq_h[j-1] ? '|' : ' ');
+            a2[idx] = seq_h[j-1];
             i--;
             j--;
-        }
-        else if (dp[i][j] == dp[i-1][j] + gap) {
-            a1.insert(a1.begin(), seq_v[i-1]);
-            gaps.insert(gaps.begin(), ' ');
-            a2.insert(a2.begin(), '-');
+        } else if (dp[i][j] == dp[i-1][j] + gap) {
+            a1[idx] = seq_v[i-1];
+            gaps[idx] = ' ';
+            a2[idx] = '-';
             i--;
-        }
-        else {
-            a1.insert(a1.begin(), '-');
-            gaps.insert(gaps.begin(), ' ');
-            a2.insert(a2.begin(), seq_h[j-1]);
+        } else {
+            a1[idx] = '-';
+            gaps[idx] = ' ';
+            a2[idx] = seq_h[j-1];
             j--;
         }
+        idx++;
     }
+
+    // Reverse strings
+    std::reverse(a1.begin(), a1.begin() + idx);
+    std::reverse(gaps.begin(), gaps.begin() + idx);
+    std::reverse(a2.begin(), a2.begin() + idx);
 }
+
 
 int Alignment::getScore() const {
     return score;
