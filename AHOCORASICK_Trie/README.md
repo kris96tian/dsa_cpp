@@ -32,8 +32,14 @@ Replace <text_file_or_string> with the path to a text file or the text itself an
 The program consists of the following components:
 
 TrieNode: Represents a node in the trie data structure used for efficient string matching.
+
+
 insert: Inserts a pattern into the trie.
+
+
 buildFailTransitions: Builds failure transitions in the trie to efficiently handle non-matching characters.
+
+
 AhoCorasickSearch: Performs the Aho-Corasick string search algorithm on the input text using the constructed trie.
 
 ## References
