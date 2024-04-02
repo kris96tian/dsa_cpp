@@ -2,29 +2,11 @@
 
 A C++ implementation the Aho-Corasick algorithm, a string-searching algorithm (in bioinformatics) that efficiently searches for multiple patterns in a given text.
 
-## Overview
+## Reuirements
 
-The Aho-Corasick algorithm consists of three main steps:
+C++ compiler with C++11 support
 
-1. **Insertion**: Build a trie data structure that represents the set of patterns to be searched.
-2. **Failure Function Construction**: Calculate a failure function for efficient transition between trie nodes.
-3. **Pattern Search**: Perform the actual search for patterns in the given text using the constructed trie and failure function.
 
-## Code Structure
-
-The code is organized into the following components:
-
-- **TrieNode Structure**: Represents a node in the trie, containing output patterns, children nodes, and a fail pointer.
-
-- **createNode Function**: Creates a new trie node with proper initialization.
-
-- **insert Function**: Inserts a pattern into the trie.
-
-- **buildFailTransitions Function**: Constructs the failure function for efficient transitions between trie nodes.
-
-- **AhoCorasickSearch Function**: Performs the pattern search in a given text using the constructed trie and failure function.
-
-- **Main Function**: Demonstrates the usage of the Aho-Corasick algorithm by searching for multiple patterns in a random text.
 
 ## Usage
 
@@ -33,25 +15,26 @@ Compile the C++ program:
 ```bash
 g++ -o ahocorasick ahocorasick.cpp 
 ```
-Then add the input text to be searched and the pattern(s) as command line arguments:
+Run the compiled program with the following command:
+
 ```bash
-./ahocorasick <text> <pattern1> <pattern2> ...
+./aho_corasick <text_file_or_string> <pattern1> <pattern2> ...
 ```
-The program outputs the positions where each pattern is found in the text.
+
+Replace <text_file_or_string> with the path to a text file or the text itself and <pattern1> <pattern2> ... with the patterns you want to search for in the text.
 
 ## Example
-Input:
 ```bash
-./ahocorasick abcdefgh ab bc cf def
+./aho_corasick input.txt pattern1 pattern2
 ```
 
-Output:
-```plaintext
-Pattern "ab" found at Position 0
-Pattern "bc" found at Position 1
-Pattern "cf" found at Position 5
-Pattern "def" found at Position 3
-```
+## Description
+The program consists of the following components:
+
+TrieNode: Represents a node in the trie data structure used for efficient string matching.
+insert: Inserts a pattern into the trie.
+buildFailTransitions: Builds failure transitions in the trie to efficiently handle non-matching characters.
+AhoCorasickSearch: Performs the Aho-Corasick string search algorithm on the input text using the constructed trie.
 
 ## References
 This implementation is based on the Aho-Corasick algorithm described in the following paper:
