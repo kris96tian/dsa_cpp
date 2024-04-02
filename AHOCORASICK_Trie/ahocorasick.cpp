@@ -1,117 +1,145 @@
+#include <cctype>
+#include <fstream>
 #include <iostream>
+#include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
-#include <queue>
 
-const int ALPHABET_SIZE = 26;
-using namespace std;
+// const int ALPHABET_SIZE = 128;
 
-struct TrieNode {
-    vector<int> output;
-    vector<TrieNode*> children;
-    TrieNode* fail;
+struct TrieNode 
+{
+  int *output = nullptr;
+  size_t output_size = 0;
+  size_t output_capacity = 0;
+  std::unordered_map<char, std::shared_ptr<TrieNode>> children;
+  std::shared_ptr<TrieNode> fail = nullptr;
+
+  ~TrieNode() { delete[] output; }
+
+  void add_output(int index) 
+ {
+    if (output_size == output_capacity)
+    {
+          output_capacity = (output_capacity == 0) ? 1 : output_capacity * 2;
+          int *new_output = new int[output_capacity];
+          for (size_t i = 0; i < output_size; ++i) 
+          {
+            new_output[i] = output[i];
+          }
+          delete[] output;
+          output = new_output;
+    }
+    output[output_size++] = index;
+  }
 };
 
-TrieNode* createNode() {
-    TrieNode* newNode = new TrieNode();
-    newNode->children.assign(ALPHABET_SIZE, nullptr);
-    newNode->fail = nullptr;
-    return newNode;
+std::shared_ptr<TrieNode> root = std::make_shared<TrieNode>();
+
+
+void insert(const std::string &pattern, int index) {
+  std::shared_ptr<TrieNode> current = root;
+  for (char c : pattern) 
+  {
+    char idx = std::tolower(c);
+    if (current->children.count(idx) == 0) {
+      current->children[idx] = std::make_shared<TrieNode>();
+    }
+    current = current->children[idx];
+  }
+  current->add_output(index);
 }
 
-void insert(TrieNode* root, const string& pattern, int index) {
-    TrieNode* current = root;
-    for (char c : pattern) {
-        int idx = c - 'a';
-        if (!current->children[idx])
-            current->children[idx] = createNode();
-        current = current->children[idx];
-    }
-    current->output.push_back(index);
-}
+void buildFailTransitions() {
+  std::vector<std::shared_ptr<TrieNode>> q;
+    
+  for (auto &entry : root->children) {
+    entry.second->fail = root;
+    q.push_back(entry.second);
+  }
 
-void buildFailTransitions(TrieNode* root) {
-    queue<TrieNode*> q;
+  while (!q.empty()) 
+  {
+    std::shared_ptr<TrieNode> current = q.back();
+    q.pop_back();
 
-    for (int i = 0; i < ALPHABET_SIZE; ++i) {
-        if (root->children[i]) {
-            root->children[i]->fail = root;
-            q.push(root->children[i]);
-        }
-    }
-
-    while (!q.empty()) {
-        TrieNode* current = q.front();
-        q.pop();
-
-        for (int i = 0; i < ALPHABET_SIZE; ++i) {
-            if (current->children[i]) {
-                TrieNode* temp = current->fail;
-                while (temp && !temp->children[i])
-                    temp = temp->fail;
-
-                if (temp)
-                    current->children[i]->fail = temp->children[i];
-                else
-                    current->children[i]->fail = root;
-
-                q.push(current->children[i]);
-            }
-        }
-    }
-}
-
-void AhoCorasickSearch(const string& text, TrieNode* root, const vector<string>& all_patterns) {
-    TrieNode* current = root;
-    for (char c : text) 
+    for (auto &entry : current->children) 
     {
-        int idx = c - 'a';
-        while (current && !current->children[idx])
-            current = current->fail;
+          char c = entry.first;
+          std::shared_ptr<TrieNode> child = entry.second;
+    
+          std::shared_ptr<TrieNode> temp = current->fail;
+          while (temp != nullptr && temp->children.count(c) == 0) 
+          {
+            temp = temp->fail;
+          }
+          child->fail = (temp == nullptr) ? root : temp->children[c];
+          q.push_back(child);
+     }
+  }
+}
 
-        if (current)
-            current = current->children[idx];
-        else
-            current = root;
+void AhoCorasickSearch(const std::string &text, const std::vector<std::string> &all_patterns){
+  std::shared_ptr<TrieNode> current = root;
 
-        for (int index : current->output)
-            cout << "Pattern \"" << all_patterns[index] << "\" found at Position " << index << endl;
-    }
+  for (size_t i = 0; i < text.length(); ++i) 
+  {
+        char idx = std::tolower(text[i]);
+          
+        while (current != root && current->children.count(idx) == 0) 
+             { current = current->fail; }  
+        if (current->children.count(idx) != 0) {  current = current->children[idx];   } 
+        else { current = root; }
+    
+        std::shared_ptr<TrieNode> temp = current;
+          
+        while (temp != root) 
+        {
+              for (size_t j = 0; j < temp->output_size; ++j) 
+              {
+                int index = temp->output[j];
+                std::string pattern = all_patterns[index];
+                size_t pos = i - pattern.length() + 1;
+                std::cout << "Pattern \"" << pattern << "\" found at Position " << pos << std::endl;
+              }
+          temp = temp->fail;
+        }
+  }
 }
 
 
-/*          M A I N 
-*//////////////////////////////////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv) 
+//// MAIN /////////////////////////////////////////////////////////
+int main(int argc, char *argv[]) 
 {
-    if (argc < 3) {
-        cerr << "Usage: " << argv[0] << " <text> <pattern1> <pattern2> ..." << endl;
-        return 1;}
+  if (argc < 3) {
+    std::cout << "Usage: " << argv[0]
+              << " <text_file_or_string> <pattern1> <pattern2> ..."
+              << std::endl;
+    return 1;
+  }
 
-    string random_text = argv[1];
-    vector<string> some_patterns;
+  std::string input_text;
+  if (std::ifstream(argv[1]).good()) 
+  {
+    std::ifstream file(argv[1]);
+    std::getline(file, input_text, '\0');
+  } else {
+    input_text = argv[1];
+  }
+
     
-    for (int i = 2; i < argc; ++i)
-        some_patterns.push_back(argv[i]);
+  std::vector<std::string> patterns;
+  for (int i = 2; i < argc; ++i) {
+    patterns.push_back(argv[i]);
+  }
 
-    TrieNode* root_node = createNode();
+  for (int i = 0; i < patterns.size(); ++i) {
+    insert(patterns[i], i);
+  }
 
-    for (int i = 0; i < some_patterns.size(); ++i)
-        insert(root_node, some_patterns[i], i);
+  buildFailTransitions();
+  AhoCorasickSearch(input_text, patterns);
 
-    buildFailTransitions(root_node);
-    AhoCorasickSearch(random_text, root_node, some_patterns);
-
-    return 0;
+  return 0;
 }
-
- /*
-           E X A M P L E    U S A G E :
-    
-Input:
-    ./ahocorasick abcdefgh ab bc cf def
-
-Output:
-    Pattern "ab" found at Position 0
-    Pattern "bc" found at Position 1
-    Pattern "def" found at Position 3*/
