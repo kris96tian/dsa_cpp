@@ -7,7 +7,6 @@ To use the Horspool algorithm, follow these steps:
 
 1. Clone the repository:
 ```bash
-Kopieren
 git clone https://github.com/kris96tian/dsa_cpp.git
 ```
 2. Navigate to the HORSPOOL directory:
