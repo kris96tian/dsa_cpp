@@ -23,7 +23,7 @@ To use this program, follow these steps:
 ```
 
 
-- `file1` and `file2` are the paths to the input files containing sequences to be aligned.
+- `file1` and `file2` are the paths to the input files in `fasta format` containing sequences to be aligned.
 
 - `match`, `mismatch`, and `gap` (optional) are the match, mismatch, and gap penalties, respectively. If not provided, default values of `3`, `-1`, and `-2` are used.
 
