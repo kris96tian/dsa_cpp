@@ -30,11 +30,11 @@ To use this program, follow these steps:
 ### Example
 
 ```bash
-./alignment_executable sequences1.txt sequences2.txt 3 -1 -2
+./alignment_executable sequences1.fasta sequences2.fasta
 ```
 
 
-This command aligns the sequences from `sequences1.txt` and `sequences2.txt` using match, mismatch, and gap penalties of `3`, `-1`, and `-2`, respectively, and saves the alignment results to an output file.
+This command aligns the sequences from `sequences1.fasta` and `sequences2.fasta` using match, mismatch, and gap penalties of `3`, `-1`, and `-2`, respectively, and saves the alignment results to an output file.
 
 ### Output
 
