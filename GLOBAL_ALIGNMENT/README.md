@@ -40,6 +40,6 @@ This command aligns the sequences from `sequences1.fasta` and `sequences2.fasta`
 
 The alignment results are saved to a text file named "results_DATE_TIME.txt", where DATE_TIME represents the current date and time. Each alignment score and the corresponding aligned sequences are written to the output file.
 
-![Example output file](<img src="blob:chrome-untrusted://media-app/16c03f3d-d130-4f4a-ba82-0a9b0bb0123c" alt="Screenshot 2024-04-04 18.18.20.png"/>![image](https://github.com/kris96tian/dsa_cpp/assets/92834350/3ca67755-718f-4814-be5e-9ee0ce26786f)
+![Screenshot](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAArlBMVEX////MzMyUlJSZmZmhoaGcnJy+vr6ampq5eXl+fn6FhYWrq6uXl5enp6eRkZGysrK2trbi4uLQ0NDDw8MzMzO/v7/FxcU6OjoPDw9GRkZaWlpqamqgoKCrKysbGxuXl5dPT09NTU1OTk5zc3Pb29tXV1fHx8cICAiIiKysrW1tbGxsaysrK9vb2ioqKh4eHhoYGBQUFBfX19/f39paWmNjY2cnJxkZGR/f3/FxcXh4eHZ2dl8fHx7e3t4eHh8fHykpKSoqKjY2Nj6+vrY2Njx8fH09PTk5OS+vr6urq6pqam
 
 
