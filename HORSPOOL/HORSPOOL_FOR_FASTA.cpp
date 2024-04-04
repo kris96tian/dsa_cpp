@@ -3,6 +3,10 @@
 #include <string>
 #include <vector>
 
+
+//  To be compiled and run as this single file, no need for the headers on the branch.
+
+
 // lookup table
 std::vector<int> buildShiftTable(const std::string& pattern) {
     const int alphabetSize = 256;
