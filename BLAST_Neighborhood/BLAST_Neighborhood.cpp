@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <omp.h> // Include for parallel processing
 
-// Define other necessary includes and helper functions
 
+// all in one fnc.
 std::vector<NHResult> BLAST_Neighborhood::generateNeighborhood(const std::string& query,
                                                               const ScoreMatrix& matrix,
                                                               const int word_size,
