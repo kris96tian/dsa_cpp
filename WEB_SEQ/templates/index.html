@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB SEQ</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #071422;
+            color: #f8f9fa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4a7cb1; 
+			  
+        }
+
+        h2 {
+            text-transform: capitalize;
+            color: #9dc3eaca; 
+        }
+
+        .sidebar {
+            width:170px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 2px solid #17a2b8; 
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .sidebar a {
+            display: block;
+            color: #f8f9fa;
+            text-decoration: none;
+            padding:10px;
+            font-weight:normal;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #053b2d; 
+        }
+
+        /* Content */
+        .content {
+            -webkit-text-size-adjust: auto;
+            margin-left: 175px;
+            padding: 10px;
+        }
+
+        .card {
+            background-color:rgb(4, 5, 7);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: rgba(34, 36, 47, 0.7);
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display:flex;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"],
+        input[type="text"],
+        textarea {
+            width:100%;
+            padding: 10px;
+            border: 1px solid #181e24;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+            background-color: #363535;
+            color: #a2b3d6;
+        }
+
+        button[type="submit"] {
+            background-color: #095bb3;
+            color: rgb(27, 113, 96);
+            padding: 10px 20px;
+            border:#071422;
+            border-radius: 6px;
+            cursor:pointer;
+            font-size: 19px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#home">W E B<br>
+            S E Q</a>
+        <br>
+        <a href="#global-alignment">GLOBAL<b>
+            ALIGNMENT</a>
+            
+        <a href="#horspool-algorithm">HORSPOOL</a>
+        
+        <a href="#aho-corasick-search">AC-TRIE</a>
+        
+        <a href="#q-gram-index-search">QGRAMM(i)</a>
+        
+        <a href="#blast-neighborhood-search">BLAST<br>
+            Neighbor</a>
+            
+        <a href="#rna-structure-prediction">RNA STRUCT</a>
+        <br>
+    </div>
+
+    <div class="content">
+		 
+        <div class="card" id="home">
+
+            <h1 class="display-4 text-center mt-4">WEB SEQ</h1>
+            
+<p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">A web app created using C++ code by calling it 
+                with the Python Framework Flask. Bioinformatics agorithms and files are used to analyse 
+                biological data such as DNA, RNA, 
+                and protein sequences. The toolset includes sequence alignment, pattern matching 
+                with Aho-Corasick, Horspool, or even with Q-Gram indices. 
+                A section of BLAST for generating neighborhood and a simple structure prediction of RNA molecules are also showcased.
+          </p>
+          
+      </div>
+  
+        <div class="card" id="global-alignment">
+            <h2>Global Alignment</h2>
+            <form action="/alignment" method="post" enctype="multipart/form-data">
+                <label for="input_file_1">Select file 1:</label>
+                <input type="file" id="input_file_1" name="input_file_1"><br><br>
+                
+                <label for="input_file_2">Select file 2:</label>
+                <input type="file" id="input_file_2" name="input_file_2"><br><br>
+                
+                <label for="match">Match score:</label>
+                <input type="number" id="match" name="match" value="3"><br><br>
+                
+                <label for="mismatch">Mismatch score:</label>
+                <input type="number" id="mismatch" name="mismatch" value="-1"><br><br>
+                
+                <label for="gap">Gap penalty:</label>
+                <input type="number" id="gap" name="gap" value="-2"><br><br>
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="card" id="horspool-algorithm">
+            <h2>Horspool Algorithm</h2>
+            <form action="/horspool" method="post" enctype="multipart/form-data">
+                <label for="input_file">Upload File:</label><br>
+                <input type="file" id="input_file" name="input_file"><br>
+                <label for="pattern">Pattern:</label><br>
+                <input type="text" id="pattern" name="pattern"><br><br>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <div class="card" id="aho-corasick-search">
+            <h2>Aho Corasick Search</h2>
+            <form action="/ahoc" method="post" enctype="multipart/form-data">
+                <label for="text_file">Upload Text File:</label>
+                <input type="file" id="text_file" name="text_file">
+                <label for="pattern">Patterns:</label>
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+                <input type="text" id="pattern" name="pattern">
+
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div class="card" id="q-gram-index-search">
+            <h2>Q-Gram Index Search</h2>
+            <form action="/qgi" method="post" enctype="multipart/form-data">
+                <label for="genome_file">Upload Genome File:</label><br>
+                <input type="file" id="genome_file" name="genome_file"><br>
+                <label for="query">Query:</label><br>
+                <input type="text" id="query" name="query"><br><br>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <div class="card" id="blast-neighborhood-search">
+            <h2>BLAST Neighborhood Search</h2>
+            <form action="/blast" method="post">
+                <label for="seq">Query:</label><br>
+                <input type="text" id="seq" name="seq"><br><br>
+    
+                <label for="score_matrix">Score Matrix:</label><br>
+                <select id="score_matrix" name="score_matrix">
+                    <option value="pam120">pam120</option>
+                    <option value="blosum62">blosum62</option>
+                </select><br>
+    
+                <label for="word_size">Word Size:</label><br>
+                <input type="number" id="word_size" name="word_size" value="3"><br>
+                <label for="score_threshold">Score Threshold:</label><br>
+                <input type="number" id="score_threshold" name="score_threshold" value="9"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="card" id="rna-structure-prediction">
+            <h2>RNA Structure Prediction</h2>
+            <form action="/rna" method="post">
+                <label for="rna_sequence">RNA Sequence:</label><br>
+                <input type="text" id="rna_sequence" name="rna_sequence"><br><br>
+                <input type="submit" value="Predict Structure">
+            </form>
+        </div>
+    </div>
+ 
+</body>
+</html>
